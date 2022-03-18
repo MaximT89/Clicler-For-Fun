@@ -5,6 +5,9 @@ import androidx.room.Room
 import com.secondworld.clickernew.animations.Animators
 import com.secondworld.clickernew.data.repository.Repository
 import com.secondworld.clickernew.data.room.AppDatabase
+import com.secondworld.clickernew.domain.DamagePriceCase
+import com.secondworld.clickernew.domain.EnemyCase
+import com.secondworld.clickernew.domain.ScoreCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,4 +35,16 @@ object AppModule {
     @Provides
     @Singleton
     fun provideWeaponDao(appDatabase : AppDatabase) = appDatabase.weaponDao()
+
+    @Provides
+    @Singleton
+    fun provideEnemyInteractor() = EnemyCase()
+
+    @Provides
+    @Singleton
+    fun provideScoreInteractor() = ScoreCase()
+
+    @Provides
+    @Singleton
+    fun provideDamagePriceCase(repository: Repository) = DamagePriceCase(repository)
 }

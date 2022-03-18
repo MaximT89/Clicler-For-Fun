@@ -3,11 +3,13 @@ package com.secondworld.clickernew.ui.screens.game
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.TextView
 import androidx.activity.viewModels
+import com.secondworld.clickernew.animations.AnimateType
 import com.secondworld.clickernew.animations.Animators
 import com.secondworld.clickernew.core.BaseActivity
-import com.secondworld.clickernew.data.room.WeaponDao
+import com.secondworld.clickernew.core.enabled
+import com.secondworld.clickernew.core.notEnabled
+import com.secondworld.clickernew.core.updateText
 import com.secondworld.clickernew.databinding.ActivityGameBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,19 +33,56 @@ class GameActivity : BaseActivity<ActivityGameBinding>() {
     }
 
     private fun initObservers() {
-        viewModel.score.observe(this) {
-            updateText(binding.testText, it)
+
+        viewModel.apply {
+
+            score.observe(this@GameActivity) {
+                animators.animScale(binding.textScore, AnimateType.OUTSIDE)
+                updateText(binding.textScore, "Score : $it")
+                checkDamageSaleBtn()
+            }
+
+            enemyHp.observe(this@GameActivity) {
+                if(it < 0) updateText(binding.btnEnemyHp, 0)
+                else updateText(binding.btnEnemyHp, it)
+            }
+
+            damage.observe(this@GameActivity) {
+                updateText(binding.textCurrentDamage, "Damage : $it")
+            }
+
+            damagePrice.observe(this@GameActivity) {
+                updateText(binding.btnDamageSale, it)
+                checkDamageSaleBtn()
+            }
         }
+    }
+
+    private fun checkDamageSaleBtn() {
+        if (viewModel.damagePrice.value!! <= viewModel.score.value!!) binding.btnDamageSale.enabled()
+        else binding.btnDamageSale.notEnabled()
     }
 
     private fun initView() {
-        binding.testText.setOnClickListener {
-            viewModel.updateScore(1)
-            animators.animScale(binding.testText)
+
+        binding.apply {
+
+            btnEnemyHp.setOnClickListener {
+                animators.animScale(btnEnemyHp, AnimateType.INSIDE)
+                viewModel.updateEnemyHp()
+            }
+
+            btnClearScore.setOnClickListener {
+                viewModel.clearScore()
+                viewModel.cleanDamagePrice()
+                viewModel.cleanDamage()
+            }
+
+            btnDamageSale.setOnClickListener {
+                animators.animScale(binding.btnDamageSale, AnimateType.INSIDE)
+                viewModel.damageSale()
+            }
         }
     }
-
-    private fun updateText(view: TextView, message: Any) {
-        view.text = message.toString()
-    }
 }
+

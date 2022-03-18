@@ -1,8 +1,10 @@
 package com.secondworld.clickernew.data.repository
 
 import android.content.Context
-import com.secondworld.clickernew.data.prefs.StoragePref
-import com.secondworld.clickernew.data.prefs.StoragePref.score
+import com.secondworld.clickernew.data.storages.StoragePref
+import com.secondworld.clickernew.data.storages.StoragePref.damage
+import com.secondworld.clickernew.data.storages.StoragePref.damagePrice
+import com.secondworld.clickernew.data.storages.StoragePref.score
 import javax.inject.Inject
 
 class Repository @Inject constructor(context: Context) {
@@ -13,5 +15,12 @@ class Repository @Inject constructor(context: Context) {
     fun updateScore(value : Int) { prefs.score += value }
     fun getScore() = prefs.score
 
+    fun setDamage(value : Int) { prefs.damage = value }
+    fun updateDamage(value : Int) { prefs.damage += value }
+    fun getDamage() = prefs.damage
+
+    fun setDamagePrice(value : Int) { prefs.damagePrice = value }
+    fun updateDamagePrice(value : Int) { prefs.damagePrice += value }
+    fun getDamagePrice() = prefs.damagePrice
 
 }
