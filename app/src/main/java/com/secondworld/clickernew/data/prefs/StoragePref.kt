@@ -9,7 +9,7 @@ object StoragePref : BaseSharedPreferences {
 
     var SharedPreferences.score
         get() = getInt(PROFILE_SCORE, 0)
-        set(value) = editMe {
-            it.put(PROFILE_SCORE to value)
-        }
+        set(value) = editMe { it.put(PROFILE_SCORE to value) }
+
+
 }

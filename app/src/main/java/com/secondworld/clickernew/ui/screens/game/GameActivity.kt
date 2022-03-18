@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import com.secondworld.clickernew.animations.Animators
 import com.secondworld.clickernew.core.BaseActivity
+import com.secondworld.clickernew.data.room.WeaponDao
 import com.secondworld.clickernew.databinding.ActivityGameBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class GameActivity : BaseActivity<ActivityGameBinding>() {
 
-    override val bindingInflater: (LayoutInflater) -> ActivityGameBinding = ActivityGameBinding::inflate
+    override val bindingInflater: (LayoutInflater) -> ActivityGameBinding =
+        ActivityGameBinding::inflate
     private val viewModel: GameViewModel by viewModels()
 
     @Inject
