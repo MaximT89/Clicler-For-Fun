@@ -30,13 +30,14 @@ class GameViewModel @Inject constructor(
     private val _enemyHp = MutableLiveData(enemyCase.createEnemyHp())
     val enemyHp: LiveData<Int> get() = _enemyHp
 
+    private val _enemyDead = MutableLiveData(false)
+    val enemyDead: LiveData<Boolean> get() = _enemyDead
+
+    // TODO: нужно починить определение смерти enemy
+
+    // Score
     private fun updateScore(value: Int) {
         repository.updateScore(value)
-        _score.postValue(repository.getScore())
-    }
-
-    fun clearScore() {
-        repository.setScore(0)
         _score.postValue(repository.getScore())
     }
 
@@ -45,9 +46,15 @@ class GameViewModel @Inject constructor(
         _score.postValue(repository.getScore())
     }
 
-    fun cleanDamagePrice(){
-        repository.setDamagePrice(1)
-        _damagePrice.postValue(repository.getDamagePrice())
+    fun clearScore() {
+        repository.setScore(0)
+        _score.postValue(repository.getScore())
+    }
+
+    // Damage
+    private fun updateDamage(value : Int) {
+        repository.updateDamage(value)
+        _damage.postValue(repository.getDamage())
     }
 
     fun cleanDamage(){
@@ -55,6 +62,7 @@ class GameViewModel @Inject constructor(
         _damage.postValue(repository.getDamage())
     }
 
+    // Enemy HP
     private fun getEnemyHp() {
         _enemyHp.postValue(enemyCase.createEnemyHp())
     }
@@ -70,19 +78,25 @@ class GameViewModel @Inject constructor(
         }
     }
 
+    // Damage Price
     private fun updateDamagePrice(){
         repository.updateDamagePrice(damagePriceCase.getDamagePrice())
         _damagePrice.postValue(repository.getDamagePrice())
     }
 
+    fun cleanDamagePrice(){
+        repository.setDamagePrice(1)
+        _damagePrice.postValue(repository.getDamagePrice())
+    }
+
+    // Other
     fun damageSale(){
         setScore(repository.getScore() - repository.getDamagePrice())
         updateDamagePrice()
         updateDamage(1)
     }
 
-    private fun updateDamage(value : Int) {
-        repository.updateDamage(value)
-        _damage.postValue(repository.getDamage())
-    }
+    fun getBgColor() = repository.getRandomColor()
+
+
 }

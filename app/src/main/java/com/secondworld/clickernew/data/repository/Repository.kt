@@ -1,6 +1,7 @@
 package com.secondworld.clickernew.data.repository
 
 import android.content.Context
+import com.secondworld.clickernew.data.storages.StorageColors
 import com.secondworld.clickernew.data.storages.StoragePref
 import com.secondworld.clickernew.data.storages.StoragePref.damage
 import com.secondworld.clickernew.data.storages.StoragePref.damagePrice
@@ -22,5 +23,9 @@ class Repository @Inject constructor(context: Context) {
     fun setDamagePrice(value : Int) { prefs.damagePrice = value }
     fun updateDamagePrice(value : Int) { prefs.damagePrice += value }
     fun getDamagePrice() = prefs.damagePrice
+
+    fun getRandomColor() = StorageColors.getRandomColor()
+
+
 
 }

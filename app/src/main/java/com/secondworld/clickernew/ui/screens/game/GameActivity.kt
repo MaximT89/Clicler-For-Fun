@@ -2,14 +2,13 @@ package com.secondworld.clickernew.ui.screens.game
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.viewModels
 import com.secondworld.clickernew.animations.AnimateType
 import com.secondworld.clickernew.animations.Animators
-import com.secondworld.clickernew.core.BaseActivity
-import com.secondworld.clickernew.core.enabled
-import com.secondworld.clickernew.core.notEnabled
-import com.secondworld.clickernew.core.updateText
+import com.secondworld.clickernew.core.*
 import com.secondworld.clickernew.databinding.ActivityGameBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,7 +42,7 @@ class GameActivity : BaseActivity<ActivityGameBinding>() {
             }
 
             enemyHp.observe(this@GameActivity) {
-                if(it < 0) updateText(binding.btnEnemyHp, 0)
+                if (it < 0) updateText(binding.btnEnemyHp, 0)
                 else updateText(binding.btnEnemyHp, it)
             }
 
@@ -55,12 +54,24 @@ class GameActivity : BaseActivity<ActivityGameBinding>() {
                 updateText(binding.btnDamageSale, it)
                 checkDamageSaleBtn()
             }
+
+            enemyDead.observe(this@GameActivity){
+
+                if(it){
+                    Log.d(TAG, "initObservers: OK")
+                    setBackgroundColor(binding.btnEnemyHp)
+                }
+            }
         }
     }
 
     private fun checkDamageSaleBtn() {
         if (viewModel.damagePrice.value!! <= viewModel.score.value!!) binding.btnDamageSale.enabled()
         else binding.btnDamageSale.notEnabled()
+    }
+
+    private fun setBackgroundColor(view : View){
+        view.setBackgroundColor(viewModel.getBgColor())
     }
 
     private fun initView() {
