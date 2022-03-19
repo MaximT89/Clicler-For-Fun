@@ -7,6 +7,15 @@
     android:padding="8dp"
     tools:context=".ui.screens.game.GameActivity">
 
+    <RelativeLayout
+        android:id="@+id/field_text_damage_to_enemy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btn_enemy_hp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <TextView
         android:id="@+id/text_score"
         android:layout_width="wrap_content"

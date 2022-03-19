@@ -1,5 +1,6 @@
 package com.secondworld.clickernew.ui.screens.game
 
+import android.widget.RelativeLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -69,9 +70,13 @@ class GameViewModel @Inject constructor(
         _enemyHp.postValue(enemyCase.createEnemyHp())
     }
 
-    fun updateEnemyHp(){
+    fun updateEnemyHp(fieldTextDamageToEnemy: RelativeLayout) {
 //        val s = _enemyHp.value!!.minus(_damage.value!!)
-        val s = _enemyHp.value!!.minus(damageCase.getCurrentDamage())
+
+        _damage.postValue(damageCase.getCurrentDamage())
+        createTextDamage(fieldTextDamageToEnemy, _damage.value)
+
+        val s = _enemyHp.value!!.minus(_damage.value!!)
 
         if(s <= 0){
             getEnemyHp()
@@ -100,6 +105,9 @@ class GameViewModel @Inject constructor(
     }
 
     fun getBgColor() = repository.getRandomColor()
+    private fun createTextDamage(fieldTextDamageToEnemy: RelativeLayout, value: Int?) {
+        damageCase.createTextDamage(fieldTextDamageToEnemy, value)
+    }
 
 
 }

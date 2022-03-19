@@ -39,11 +39,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideEnemyInteractor() = EnemyCase()
+    fun provideEnemyCase() = EnemyCase()
 
     @Provides
     @Singleton
-    fun provideScoreInteractor() = ScoreCase()
+    fun provideScoreCase() = ScoreCase()
 
     @Provides
     @Singleton
@@ -51,5 +51,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDamageCase(repository: Repository) = DamageCase(repository)
+    fun provideDamageCase(repository: Repository, @ApplicationContext context: Context, animators: Animators) =
+        DamageCase(repository, context, animators)
 }

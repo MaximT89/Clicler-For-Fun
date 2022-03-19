@@ -2,12 +2,10 @@ package com.secondworld.clickernew.ui.screens.game
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
-import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
-import com.secondworld.clickernew.animations.AnimateType
+import com.secondworld.clickernew.animations.AnimateTypeScale
 import com.secondworld.clickernew.animations.Animators
 import com.secondworld.clickernew.core.*
 import com.secondworld.clickernew.databinding.ActivityGameBinding
@@ -37,7 +35,7 @@ class GameActivity : BaseActivity<ActivityGameBinding>() {
         viewModel.apply {
 
             score.observe(this@GameActivity) {
-                animators.animScale(binding.textScore, AnimateType.OUTSIDE)
+                animators.animScale(binding.textScore, AnimateTypeScale.OUTSIDE)
                 updateText(binding.textScore, "Score : $it")
                 checkDamageSaleBtn()
             }
@@ -79,8 +77,8 @@ class GameActivity : BaseActivity<ActivityGameBinding>() {
         binding.apply {
 
             btnEnemyHp.setOnClickListener {
-                animators.animScale(btnEnemyHp, AnimateType.INSIDE)
-                viewModel.updateEnemyHp()
+                animators.animScale(btnEnemyHp, AnimateTypeScale.INSIDE)
+                viewModel.updateEnemyHp(binding.fieldTextDamageToEnemy)
             }
 
             btnClearScore.setOnClickListener {
@@ -90,7 +88,7 @@ class GameActivity : BaseActivity<ActivityGameBinding>() {
             }
 
             btnDamageSale.setOnClickListener {
-                animators.animScale(binding.btnDamageSale, AnimateType.INSIDE)
+                animators.animScale(binding.btnDamageSale, AnimateTypeScale.INSIDE)
                 viewModel.damageSale()
             }
         }
