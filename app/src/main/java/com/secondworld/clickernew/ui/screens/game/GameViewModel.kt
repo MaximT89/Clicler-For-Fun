@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.secondworld.clickernew.data.repository.Repository
+import com.secondworld.clickernew.domain.DamageCase
 import com.secondworld.clickernew.domain.DamagePriceCase
 import com.secondworld.clickernew.domain.EnemyCase
 import com.secondworld.clickernew.domain.ScoreCase
@@ -15,7 +16,8 @@ class GameViewModel @Inject constructor(
     private val repository: Repository,
     private val enemyCase: EnemyCase,
     private val scoreCase: ScoreCase,
-    private val damagePriceCase: DamagePriceCase
+    private val damagePriceCase: DamagePriceCase,
+    private val damageCase: DamageCase
 ) : ViewModel() {
 
     private val _score = MutableLiveData(repository.getScore())
@@ -68,7 +70,8 @@ class GameViewModel @Inject constructor(
     }
 
     fun updateEnemyHp(){
-        val s = _enemyHp.value!!.minus(_damage.value!!)
+//        val s = _enemyHp.value!!.minus(_damage.value!!)
+        val s = _enemyHp.value!!.minus(damageCase.getCurrentDamage())
 
         if(s <= 0){
             getEnemyHp()

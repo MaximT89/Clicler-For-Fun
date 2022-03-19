@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.secondworld.clickernew.animations.Animators
 import com.secondworld.clickernew.data.repository.Repository
 import com.secondworld.clickernew.data.room.AppDatabase
+import com.secondworld.clickernew.domain.DamageCase
 import com.secondworld.clickernew.domain.DamagePriceCase
 import com.secondworld.clickernew.domain.EnemyCase
 import com.secondworld.clickernew.domain.ScoreCase
@@ -47,4 +48,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDamagePriceCase(repository: Repository) = DamagePriceCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideDamageCase(repository: Repository) = DamageCase(repository)
 }

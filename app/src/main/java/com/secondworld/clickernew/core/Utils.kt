@@ -1,10 +1,9 @@
 package com.secondworld.clickernew.core
 
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.secondworld.clickernew.data.repository.Repository
-
-const val TAG = "TAG"
 
 fun updateText(view: TextView, message: Any) {
     view.text = message.toString()
@@ -26,5 +25,17 @@ fun View.enabled() {
 fun View.notEnabled() {
     isEnabled = false
     isClickable = false
+}
+
+fun showViews(vararg views: View) {
+    for (view in views) view.visibility = View.VISIBLE
+}
+
+fun hideViews(vararg views: View) {
+    for (view in views) view.visibility = View.GONE
+}
+
+fun log(message : String){
+    Log.d("TAG", "log: $message")
 }
 

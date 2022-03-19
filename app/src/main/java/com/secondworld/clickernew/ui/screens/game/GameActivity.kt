@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
+import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
 import com.secondworld.clickernew.animations.AnimateType
 import com.secondworld.clickernew.animations.Animators
 import com.secondworld.clickernew.core.*
@@ -58,7 +59,6 @@ class GameActivity : BaseActivity<ActivityGameBinding>() {
             enemyDead.observe(this@GameActivity){
 
                 if(it){
-                    Log.d(TAG, "initObservers: OK")
                     setBackgroundColor(binding.btnEnemyHp)
                 }
             }
