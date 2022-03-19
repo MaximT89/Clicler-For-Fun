@@ -4,6 +4,7 @@ import android.widget.RelativeLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.secondworld.clickernew.core.log
 import com.secondworld.clickernew.data.repository.Repository
 import com.secondworld.clickernew.domain.DamageCase
 import com.secondworld.clickernew.domain.DamagePriceCase
@@ -71,12 +72,11 @@ class GameViewModel @Inject constructor(
     }
 
     fun updateEnemyHp(fieldTextDamageToEnemy: RelativeLayout) {
-//        val s = _enemyHp.value!!.minus(_damage.value!!)
 
-        _damage.postValue(damageCase.getCurrentDamage())
-        createTextDamage(fieldTextDamageToEnemy, _damage.value)
+        val damageEntity = damageCase.getCurrentDamage()
+        createTextDamage(fieldTextDamageToEnemy, damageEntity.damage, damageEntity.typeDamage)
 
-        val s = _enemyHp.value!!.minus(_damage.value!!)
+        val s = _enemyHp.value!!.minus(damageEntity.damage)
 
         if(s <= 0){
             getEnemyHp()
@@ -105,8 +105,12 @@ class GameViewModel @Inject constructor(
     }
 
     fun getBgColor() = repository.getRandomColor()
-    private fun createTextDamage(fieldTextDamageToEnemy: RelativeLayout, value: Int?) {
-        damageCase.createTextDamage(fieldTextDamageToEnemy, value)
+    private fun createTextDamage(
+        fieldTextDamageToEnemy: RelativeLayout,
+        value: Int?,
+        typeDamage: DamageCase.DamageType
+    ) {
+        damageCase.createTextDamage(fieldTextDamageToEnemy, value, typeDamage)
     }
 
 

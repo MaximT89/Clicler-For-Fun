@@ -13,8 +13,20 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/btn_enemy_hp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
         android:layout_marginBottom="8dp"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="100"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/text_score"
